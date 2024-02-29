@@ -2,9 +2,9 @@
 
 """Specific data provider for Russia (ru)."""
 
-from mimesis.builtins.base import BaseSpecProvider
+from mimesis.providers import BaseDataProvider
 from mimesis.enums import Gender
-from mimesis.typing import Seed
+from mimesis.types import Seed
 import random, csv
 from itertools import product, islice, chain, cycle, repeat, tee
 
@@ -20,13 +20,12 @@ def csv_reader(file_path):
         return ar
 
 
-class BelarusSpecProvider(BaseSpecProvider):
+class BelarusSpecProvider(BaseDataProvider):
     """Class that provides special data for Russia (ru)."""
 
     def __init__(self, seed: Seed = None):
         """Initialize attributes."""
         super().__init__(seed=seed)
-        self.pull(self._datafile)
         self.gender = None
 
         self.m_name1 = csv_reader("DATA/M_name1.txt")

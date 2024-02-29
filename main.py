@@ -3,7 +3,7 @@ import math, itertools, functools
 from itertools import product, islice, chain, cycle, repeat, tee
 import random
 from mimesis import Generic, Person, Address
-from mimesis.enums import Gender
+from mimesis.enums import Gender, Locale
 from mimesis.builtins import RussiaSpecProvider
 from provider import BelarusSpecProvider
 import time
@@ -43,11 +43,11 @@ def get_error(persons, full_errors, locale):
 
 
 def RU(count, full_errors):
-    generic = Generic(locale='ru')
+    generic = Generic(locale=Locale.RU)
     generic.add_provider(RussiaSpecProvider)
     persons = [[generic.person.full_name(), generic.russia_provider.patronymic(), generic.address.city(),
                 generic.address.street_suffix(), generic.address.street_name(), generic.address.street_number(),
-                str(generic.numbers.between(minimum=1, maximum=100)), generic.person.telephone()] for _ in range(count)]
+                str(generic.numeric.integer_number(start=1, end=100)), generic.person.telephone()] for _ in range(count)]
 
     get_error(persons, full_errors, 'ru')
 
@@ -56,10 +56,10 @@ def RU(count, full_errors):
 
 
 def EN(count, full_errors):
-    generic = Generic(locale='en')
+    generic = Generic(locale=Locale.EN)
     persons = [[generic.person.full_name(), generic.address.city(),
                 generic.address.street_suffix(), generic.address.street_name(), generic.address.street_number(),
-                str(generic.numbers.between(minimum=1, maximum=100)), generic.person.telephone()] for _ in range(count)]
+                str(generic.numeric.integer_number(start=1, end=100)), generic.person.telephone()] for _ in range(count)]
 
     get_error(persons, full_errors, 'en')
 
